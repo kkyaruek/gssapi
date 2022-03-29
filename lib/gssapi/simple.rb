@@ -137,7 +137,7 @@ module GSSAPI
 
       raise GssApiError.new(maj_stat, min_stat), "gss_accept_sec_context did not return GSS_S_COMPLETE" if maj_stat > 1
 
-      if (ret_flags.read_uint32 & LibGSSAPI::GSS_C_DELEG_FLAG) != 0
+      if (ret_flags.read_uint & LibGSSAPI::GSS_C_DELEG_FLAG) != 0
         @delegated_credentials = LibGSSAPI::GssCredIdT.new(delegated_cred_handle.get_pointer(0))
       end
 

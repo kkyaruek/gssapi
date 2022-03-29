@@ -26,7 +26,7 @@ module GSSAPI
         message_context = FFI::MemoryPointer.new :OM_uint32
         @s = ''
         oid = GssOID.gss_c_no_oid
-        min_stat = min_stat.read_uint32
+        min_stat = min_stat.read_uint
         [[maj_stat, GSS_C_GSS_CODE], [min_stat, GSS_C_MECH_CODE]].each do |m, t|
           message_context.write_int 0
           begin
@@ -35,7 +35,7 @@ module GSSAPI
             if (maj != 0)
               @s += "failed to retrieve GSSAPI display for status #{m}"
               @s += " of major status #{maj_stat}, minor_status #{min_stat}\n"
-              @s += "(with major status #{maj}, minor status #{min.read_uint32}\n"
+              @s += "(with major status #{maj}, minor status #{min.read_uint}\n"
               break
             end
             @s += out_buff.value.to_s + "\n"
